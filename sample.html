@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/2.0.0/marked.min.js"></script>
+
 <style>
 html,
 body,
@@ -44,8 +46,22 @@ code {
 </head>
 <body>
     <div id="editor">
-        <textarea>hello</textarea>
-        <div></div>
+        <textarea v-model:value="input">hello</textarea>
+        <div v-html="compiledMarkdown"></div>
     </div>
+
+    <script>
+      var app = new Vue({
+        el:'#editor',
+        data:{
+          input:'# hello'
+        },
+        computed: {
+          compiledMarkdown: function(){
+              return marked(this.input)
+          }
+        }
+      });
+    </script>
 </body>
 </html>
